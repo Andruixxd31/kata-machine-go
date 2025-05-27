@@ -3,11 +3,13 @@ package main
 import (
 	"fmt"
 
-	"github.com/andruixxd31/kata-machine-go/src"
+	twocrystallballs "github.com/andruixxd31/kata-machine-go/src/two_crystall_balls"
 )
 
 func main() {
-	array := []int{0, 2, 3, 6, 8, 19, 23}
-	index := src.BinarySearch(array, 5, 0, len(array))
+	// array := []bool{false, false, false, false, false, true, true, true, true}
+	array := []bool{false, false, true, true, true, true}
+	// array := []bool{false, false, false, false, false, true, true, true, true}
+	index := twocrystallballs.TwoCrystralBalls(array)
 	fmt.Printf("Index is %d \n", index)
 }
