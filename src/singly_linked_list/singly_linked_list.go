@@ -3,6 +3,7 @@ package singlylinkedlist
 import (
 	"fmt"
 	"reflect"
+	"strings"
 )
 
 type SinglyLinkedList interface {
@@ -88,12 +89,20 @@ func (ll *LinkedList) InsertAt(idx int, node *Node) {
 }
 
 func (ll LinkedList) PrintLinkedList() {
+	var llString strings.Builder
 	cur := ll.Head
+
 	for cur != nil {
-		fmt.Printf("%d -> ", cur.Val)
+		llString.WriteString(fmt.Sprintf("%d", cur.Val))
+		if cur.Next != nil {
+			llString.WriteString(" -> ")
+		} else {
+			fmt.Fprintln(&llString)
+		}
 		cur = cur.Next
 	}
-	fmt.Println()
+
+	fmt.Print(llString.String())
 }
 
 func (ll *LinkedList) Get(idx int) *Node {
