@@ -7,7 +7,6 @@ import (
 	singlylinkedlist "github.com/andruixxd31/kata-machine-go/src/singly_linked_list"
 )
 
-// TODO: Add a benchark on print linked list and see if other case is aplicable
 func BenchmarkSinglyLinkedListAppend(b *testing.B) {
 
 	var ll singlylinkedlist.LinkedList
