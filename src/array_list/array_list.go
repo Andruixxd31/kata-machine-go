@@ -1,12 +1,5 @@
 package arraylist
 
-// prepend(item: T): void
-// insertAt(item: T, idx: number): void
-// append(item: T): void
-// remove(item: T): T |
-// get(idx: number): T | undefined
-// removeAt(idx: number): T | undefined
-
 func Prepend(arrayList []int, item int) []int {
 	n := len(arrayList)
 	if n == cap(arrayList) {
@@ -24,13 +17,21 @@ func Append(arrayList []int, item int) []int {
 	if n == cap(arrayList) {
 		arrayList = increaseCap(arrayList, n)
 	}
+
 	arrayList = arrayList[:n+1]
 	arrayList[n] = item
 	return arrayList
 }
 
-func insertAt(arrayList []int, item int, idx int) []int {
+func InsertAt(arrayList []int, item int, idx int) []int {
+	n := len(arrayList)
+	if n == cap(arrayList) {
+		arrayList = increaseCap(arrayList, n)
+	}
 
+	arrayList = arrayList[:n+1]
+	copy(arrayList[idx+1:], arrayList[idx:])
+	arrayList[idx] = item
 	return arrayList
 }
 

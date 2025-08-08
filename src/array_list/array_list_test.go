@@ -1,7 +1,6 @@
 package arraylist_test
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 
@@ -53,8 +52,6 @@ func TestAppend(t *testing.T) {
 			if !reflect.DeepEqual(arrayList, tt.want) {
 				t.Errorf("%#v got %+v - want %+v", tt.got, tt.got, tt.want)
 			}
-
-			fmt.Printf("%#v \n", arrayList)
 		})
 	}
 }
@@ -92,6 +89,41 @@ func TestPrepend(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			arrayList := arraylist.Prepend(tt.got, 1)
+
+			if len(arrayList) != tt.len {
+				t.Errorf("len is different: got %d - want %d", len(arrayList), tt.len)
+			}
+
+			if cap(arrayList) != tt.cap {
+				t.Errorf("cap is different: got %d - want %d", cap(arrayList), tt.cap)
+			}
+
+			if !reflect.DeepEqual(arrayList, tt.want) {
+				t.Errorf("%#v got %+v - want %+v", tt.got, tt.got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInsertAt(t *testing.T) {
+	tests := []struct {
+		name string
+		cap  int
+		len  int
+		got  []int
+		want []int
+	}{
+		{
+			name: "Insert within cap",
+			cap:  7,
+			len:  4,
+			got:  []int{1, 3, 4},
+			want: []int{1, 2, 3, 4},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			arrayList := arraylist.InsertAt(tt.got, 2, 1)
 
 			if len(arrayList) != tt.len {
 				t.Errorf("len is different: got %d - want %d", len(arrayList), tt.len)
