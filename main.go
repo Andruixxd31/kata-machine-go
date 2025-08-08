@@ -3,13 +3,27 @@ package main
 import (
 	"fmt"
 
-	twocrystallballs "github.com/andruixxd31/kata-machine-go/src/two_crystall_balls"
+	"github.com/andruixxd31/kata-machine-go/src/queue"
 )
 
 func main() {
-	// array := []bool{false, false, false, false, false, true, true, true, true}
-	array := []bool{false, false, true, true, true, true}
-	// array := []bool{false, false, false, false, false, true, true, true, true}
-	index := twocrystallballs.TwoCrystralBalls(array)
-	fmt.Printf("Index is %d \n", index)
+	var q queue.Queue
+	var node queue.Node
+	node.Val = 1
+	node4 := queue.Node{
+		Val: 4,
+	}
+	// node2 := queue.Node{
+	// 	Val: 2,
+	// }
+	// node0 := queue.Node{
+	// 	Val: 0,
+	// }
+
+	q.Enqueue(&node)
+	q.Enqueue(&node4)
+	q.PrintQueue()
+	returnedNode := q.Dequeue()
+	q.PrintQueue()
+	fmt.Println(returnedNode)
 }
