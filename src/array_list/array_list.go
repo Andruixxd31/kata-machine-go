@@ -15,9 +15,7 @@ func prepend(arrayList []int, item int) []int {
 func Append(arrayList []int, item int) []int {
 	n := len(arrayList)
 	if n == cap(arrayList) {
-		newArrayList := make([]int, n, n*2+1)
-		copy(newArrayList, arrayList)
-		arrayList = newArrayList
+		arrayList = increaseCap(arrayList, n)
 	}
 	arrayList = arrayList[:n+1]
 	arrayList[n] = item
@@ -35,4 +33,12 @@ func remove(arrayList *[]int) {
 
 func get(idx int) {
 
+}
+
+func increaseCap(arrayList []int, n int) []int {
+	slice := make([]int, n, n*2+1)
+	copy(slice, arrayList)
+	arrayList = slice
+
+	return arrayList
 }
