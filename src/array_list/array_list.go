@@ -1,6 +1,6 @@
 package arraylist
 
-func Prepend(arrayList []int, item int) []int {
+func Prepend(arrayList []interface{}, item interface{}) []interface{} {
 	n := len(arrayList)
 	if n == cap(arrayList) {
 		arrayList = increaseCap(arrayList, n)
@@ -12,7 +12,7 @@ func Prepend(arrayList []int, item int) []int {
 	return arrayList
 }
 
-func Append(arrayList []int, item int) []int {
+func Append(arrayList []interface{}, item interface{}) []interface{} {
 	n := len(arrayList)
 	if n == cap(arrayList) {
 		arrayList = increaseCap(arrayList, n)
@@ -23,7 +23,7 @@ func Append(arrayList []int, item int) []int {
 	return arrayList
 }
 
-func InsertAt(arrayList []int, item int, idx int) []int {
+func InsertAt(arrayList []interface{}, item int, idx int) []interface{} {
 	n := len(arrayList)
 	if n == cap(arrayList) {
 		arrayList = increaseCap(arrayList, n)
@@ -35,16 +35,8 @@ func InsertAt(arrayList []int, item int, idx int) []int {
 	return arrayList
 }
 
-func remove(arrayList *[]int) {
-
-}
-
-func get(idx int) {
-
-}
-
-func increaseCap(arrayList []int, n int) []int {
-	slice := make([]int, n, n*2+1)
+func increaseCap(arrayList []interface{}, n int) []interface{} {
+	slice := make([]interface{}, n, n*2+1)
 	copy(slice, arrayList)
 	arrayList = slice
 
