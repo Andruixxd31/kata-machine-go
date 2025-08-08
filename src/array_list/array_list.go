@@ -7,8 +7,15 @@ package arraylist
 // get(idx: number): T | undefined
 // removeAt(idx: number): T | undefined
 
-func prepend(arrayList []int, item int) []int {
+func Prepend(arrayList []int, item int) []int {
+	n := len(arrayList)
+	if n == cap(arrayList) {
+		arrayList = increaseCap(arrayList, n)
+	}
 
+	arrayList = arrayList[:n+1]
+	copy(arrayList[1:], arrayList[:])
+	arrayList[0] = item
 	return arrayList
 }
 

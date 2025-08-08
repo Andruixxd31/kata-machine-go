@@ -58,3 +58,52 @@ func TestAppend(t *testing.T) {
 		})
 	}
 }
+
+func TestPrepend(t *testing.T) {
+	tests := []struct {
+		name string
+		cap  int
+		len  int
+		got  []int
+		want []int
+	}{
+		{
+			name: "prepend empty",
+			cap:  1,
+			len:  1,
+			got:  make([]int, 0, 0),
+			want: []int{1},
+		},
+		{
+			name: "prepend within cap",
+			cap:  4,
+			len:  1,
+			got:  make([]int, 0, 4),
+			want: []int{1},
+		},
+		{
+			name: "prepend maxing cap",
+			cap:  7,
+			len:  4,
+			got:  []int{2, 3, 4},
+			want: []int{1, 2, 3, 4},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			arrayList := arraylist.Prepend(tt.got, 1)
+
+			if len(arrayList) != tt.len {
+				t.Errorf("len is different: got %d - want %d", len(arrayList), tt.len)
+			}
+
+			if cap(arrayList) != tt.cap {
+				t.Errorf("cap is different: got %d - want %d", cap(arrayList), tt.cap)
+			}
+
+			if !reflect.DeepEqual(arrayList, tt.want) {
+				t.Errorf("%#v got %+v - want %+v", tt.got, tt.got, tt.want)
+			}
+		})
+	}
+}
