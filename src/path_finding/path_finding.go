@@ -9,6 +9,13 @@ type Point struct {
 	Y int
 }
 
+var choices = [][]int{
+	{1, 0},
+	{0, 1},
+	{-1, 0},
+	{0, -1},
+}
+
 func Solve(maze [][]string, wall string, start Point, end Point) []Point {
 	var path []Point
 	seen := map[Point]bool{}
@@ -39,13 +46,6 @@ func Walk(maze [][]string, wall string, position Point, end Point, path []Point,
 	path = append(path, position)
 
 	// Walk()
-	choices := [][]int{
-		{1, 0},
-		{0, 1},
-		{-1, 0},
-		{0, -1},
-	}
-
 	for _, choice := range choices {
 		result := Walk(maze, "#", Point{position.X + choice[0], position.Y + choice[1]}, end, path, seen)
 		if result != nil {
