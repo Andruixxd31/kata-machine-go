@@ -18,11 +18,11 @@ func Solve(maze [][]string, wall string, start Point, end Point) []Point {
 }
 
 func Walk(maze [][]string, wall string, position Point, end Point, path []Point, seen map[Point]bool) []Point {
-	if maze[position.X][position.Y] == wall {
+	if position.X < 0 || position.X >= len(maze[0]) || position.Y < 0 || position.Y >= len(maze) {
 		return nil
 	}
 
-	if position.X < 0 || position.X >= len(maze[0]) || position.Y < 0 || position.Y >= len(maze) {
+	if maze[position.X][position.Y] == wall {
 		return nil
 	}
 
