@@ -122,3 +122,118 @@ func TestInsert(t *testing.T) {
 		})
 	}
 }
+
+func TestDelete(t *testing.T) {
+	tests := []struct {
+		name string
+		val  int      // value to delete
+		bst  *bst.BST // input tree
+		want *bst.BST // expected tree after deletion
+	}{
+		{
+			name: "Delete leaf node",
+			val:  0,
+			bst: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 1,
+						Left: &bst.Node{
+							Val: 0,
+						},
+					},
+					Right: &bst.Node{
+						Val: 10,
+					},
+				},
+			},
+			want: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 1,
+					},
+					Right: &bst.Node{
+						Val: 10,
+					},
+				},
+			},
+		},
+		{
+			name: "Delete node with one child",
+			val:  1,
+			bst: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 1,
+						Left: &bst.Node{
+							Val: 0,
+						},
+					},
+					Right: &bst.Node{
+						Val: 10,
+					},
+				},
+			},
+			want: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 0,
+					},
+					Right: &bst.Node{
+						Val: 10,
+					},
+				},
+			},
+		},
+		{
+			name: "Delete node with two children",
+			val:  5,
+			bst: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 3,
+					},
+					Right: &bst.Node{
+						Val: 7,
+						Left: &bst.Node{
+							Val: 6,
+						},
+						Right: &bst.Node{
+							Val: 9,
+						},
+					},
+				},
+			},
+			want: &bst.BST{
+				Root: &bst.Node{
+					Val: 6, // successor of 5
+					Left: &bst.Node{
+						Val: 3,
+					},
+					Right: &bst.Node{
+						Val: 7,
+						Right: &bst.Node{
+							Val: 9,
+						},
+					},
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.bst.Delete(&bst.Node{Val: tt.val})
+
+			// Deep equality check
+			if !reflect.DeepEqual(tt.bst, tt.want) {
+				t.Errorf("Delete(%d) failed:\n got  %+v\n want %+v",
+					tt.val, tt.bst, tt.want)
+			}
+		})
+	}
+}
