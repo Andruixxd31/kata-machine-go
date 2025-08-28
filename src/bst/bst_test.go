@@ -49,6 +49,14 @@ func TestFind(t *testing.T) {
 			},
 			want: false,
 		},
+		{
+			name: "Empty bst",
+			node: bst.Node{
+				Val: 1,
+			},
+			bst:  &bst.BST{},
+			want: false,
+		},
 	}
 
 	for _, tt := range tests {
