@@ -1,9 +1,11 @@
 package bst_test
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/andruixxd31/kata-machine-go/src/bst"
+	"github.com/davecgh/go-spew/spew"
 )
 
 func TestFind(t *testing.T) {
@@ -64,6 +66,55 @@ func TestFind(t *testing.T) {
 			got := tt.bst.Find(tt.node)
 			if got != tt.want {
 				t.Errorf("Want %t - got %t", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestInsert(t *testing.T) {
+	tests := []struct {
+		name string
+		node *bst.Node
+		bst  *bst.BST
+		want *bst.BST
+	}{
+		{
+			name: "Insert into bst",
+			node: &bst.Node{
+				Val: 0,
+			},
+			bst: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 1,
+					},
+					Right: &bst.Node{
+						Val: 10,
+					},
+				},
+			},
+			want: &bst.BST{
+				Root: &bst.Node{
+					Val: 5,
+					Left: &bst.Node{
+						Val: 1,
+						Left: &bst.Node{
+							Val: 0,
+						},
+					},
+					Right: &bst.Node{
+						Val: 10,
+					},
+				},
+			},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if !reflect.DeepEqual(tt.bst, tt.want) {
+				t.Errorf("Want %+v - got %+v", &tt.bst, &tt.want)
 			}
 		})
 	}
