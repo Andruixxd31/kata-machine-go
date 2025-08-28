@@ -113,7 +113,10 @@ func TestInsert(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
+			tt.bst.Insert(tt.node)
 			if !reflect.DeepEqual(tt.bst, tt.want) {
+				spew.Dump(tt.bst)
+				spew.Dump(tt.want)
 				t.Errorf("Want %+v - got %+v", &tt.bst, &tt.want)
 			}
 		})
