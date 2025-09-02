@@ -35,6 +35,33 @@ func TestInsert(t *testing.T) {
 				t.Errorf("%#v got %+v - want %+v", tt.heap, tt.heap, tt.want)
 			}
 		})
+	}
+}
 
+func TestDelete(t *testing.T) {
+	tests := []struct {
+		name string
+		heap heap.Heap
+		want heap.Heap
+	}{
+		{
+			name: "Delete item",
+			heap: []int{1, 20, 10},
+			want: []int{10, 20},
+		},
+		{
+			name: "Delete item two",
+			heap: []int{2, 5, 3, 10, 12, 15, 7},
+			want: []int{3, 5, 7, 10, 12, 15},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.heap = tt.heap.Delete()
+			if !reflect.DeepEqual(tt.heap, tt.want) {
+				t.Errorf("%#v got %+v - want %+v", tt.heap, tt.heap, tt.want)
+			}
+		})
 	}
 }
