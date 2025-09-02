@@ -13,6 +13,11 @@ func (h Heap) Delete() Heap {
 		return h
 	}
 
+	if len(h) == 1 {
+		h = Heap{}
+		return h
+	}
+
 	h[0] = h[len(h)-1]
 	h = h[:len(h)-1]
 
