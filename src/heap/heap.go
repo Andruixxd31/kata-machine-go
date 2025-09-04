@@ -9,7 +9,15 @@ func (h Heap) Insert(item int) Heap {
 }
 
 func (h Heap) Delete() Heap {
-	// bubble down picking the smallest child
+	if len(h) == 0 {
+		return h
+	}
+
+	if len(h) == 1 {
+		h = Heap{}
+		return h
+	}
+
 	h[0] = h[len(h)-1]
 	h = h[:len(h)-1]
 
