@@ -54,6 +54,16 @@ func TestDelete(t *testing.T) {
 			heap: []int{2, 5, 3, 10, 12, 15, 7},
 			want: []int{3, 5, 7, 10, 12, 15},
 		},
+		{
+			name: "Delete in empty heap",
+			heap: []int{},
+			want: []int{},
+		},
+		{
+			name: "Delete in heap with one item",
+			heap: []int{1},
+			want: []int{},
+		},
 	}
 
 	for _, tt := range tests {
