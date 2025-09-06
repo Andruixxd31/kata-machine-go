@@ -40,43 +40,36 @@ func TestSinglyLinkedListAppend(t *testing.T) {
 		{
 			name: "Append to empty singly linked list",
 			ll:   &singlylinkedlist.LinkedList{},
-			want: &singlylinkedlist.LinkedList{
-				Length: 1,
-				Head: &singlylinkedlist.Node{
-					Val:  1,
-					Next: nil,
-				},
-				Tail: &singlylinkedlist.Node{
-					Val:  1,
-					Next: nil,
-				},
-			},
+			want: func() *singlylinkedlist.LinkedList {
+				node1 := &singlylinkedlist.Node{Val: 1}
+				return &singlylinkedlist.LinkedList{
+					Length: 1,
+					Head:   node1,
+					Tail:   node1,
+				}
+			}(),
 			valueToAdd: 1,
 		},
 		{
 			name: "Append to singly linked list with elements",
-			ll: &singlylinkedlist.LinkedList{
-				Length: 1,
-				Head: &singlylinkedlist.Node{
-					Val:  1,
-					Next: nil,
-				},
-				Tail: &singlylinkedlist.Node{
-					Val:  1,
-					Next: nil,
-				},
-			},
-			want: &singlylinkedlist.LinkedList{
-				Length: 2,
-				Head: &singlylinkedlist.Node{
-					Val:  1,
-					Next: nil,
-				},
-				Tail: &singlylinkedlist.Node{
-					Val:  2,
-					Next: nil,
-				},
-			},
+			ll: func() *singlylinkedlist.LinkedList {
+				node1 := &singlylinkedlist.Node{Val: 1}
+				return &singlylinkedlist.LinkedList{
+					Length: 1,
+					Head:   node1,
+					Tail:   node1,
+				}
+			}(),
+			want: func() *singlylinkedlist.LinkedList {
+				node1 := &singlylinkedlist.Node{Val: 1}
+				node2 := &singlylinkedlist.Node{Val: 2}
+				node1.Next = node2
+				return &singlylinkedlist.LinkedList{
+					Length: 2,
+					Head:   node1,
+					Tail:   node2,
+				}
+			}(),
 			valueToAdd: 2,
 		},
 	}
@@ -86,8 +79,7 @@ func TestSinglyLinkedListAppend(t *testing.T) {
 			tt.ll.Append(&singlylinkedlist.Node{Val: tt.valueToAdd})
 
 			if !reflect.DeepEqual(tt.ll, tt.want) {
-				t.Errorf("%#v got %+v - want %+v", tt.ll, tt.ll, tt.want)
-
+				t.Errorf("got %+v, want %+v", tt.ll, tt.want)
 			}
 		})
 	}
