@@ -1,7 +1,6 @@
 package lru_test
 
 import (
-	"reflect"
 	"testing"
 
 	dl "github.com/andruixxd31/kata-machine-go/src/doubly_linked_list"
@@ -62,19 +61,27 @@ func TestGet(t *testing.T) {
 
 			got := tt.cache.Get(tt.search)
 
-			assertDeepEqual(t, got, tt.want)
+			assertEqual(t, got, tt.want)
 
-			if got != nil && !reflect.DeepEqual(tt.cache.LinkedList.Tail, got) {
-				t.Errorf("%s: expected node %+v to be tail, but tail is %+v", tt.name, got, tt.cache.LinkedList.Tail)
+			if got != nil && tt.cache.LinkedList.Tail.Key != got.Key {
+				t.Errorf("%s: expected node %+v to be tail, but tail is %+v", tt.name, got.Key, tt.cache.LinkedList.Tail.Key)
 			}
 		})
 	}
 }
 
-func assertDeepEqual(t testing.TB, got, want *dl.Node) {
+func assertEqual(t testing.TB, got, want *dl.Node) {
 	t.Helper()
 
-	if got != want {
-		t.Errorf("got %+v, want %+v", got, false)
+	if got == nil && want == nil {
+		return
+	}
+	if got == nil || want == nil {
+		t.Errorf("got %+v, want %+v", got, want)
+		return
+	}
+
+	if got.Key != want.Key || got.Val != want.Val {
+		t.Errorf("got node {Key: %s, Val: %d}, want node {Key: %s, Val: %d}", got.Key, got.Val, want.Key, want.Val)
 	}
 }
