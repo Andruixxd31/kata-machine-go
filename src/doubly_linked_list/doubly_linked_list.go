@@ -78,7 +78,6 @@ func (dl *LinkedList) DeleteLast() {
 	}
 
 	if dl.Head == dl.Tail {
-		// only one node
 		dl.Head = nil
 		dl.Tail = nil
 		dl.Length = 0
@@ -90,5 +89,37 @@ func (dl *LinkedList) DeleteLast() {
 	dl.Head.Prev = nil
 	node.Next = nil
 
+	dl.Length--
+}
+
+func (dl *LinkedList) DeleteNode(node *Node) {
+	if node == nil || dl.Length == 0 {
+		return
+	}
+
+	if dl.Length == 1 {
+		dl.Head = nil
+		dl.Tail = nil
+		dl.Length--
+		return
+	}
+
+	if node == dl.Head {
+		dl.DeleteLast()
+		return
+	}
+
+	if node == dl.Tail {
+		dl.Tail = node.Prev
+		node.Prev.Next = nil
+		node.Prev = nil
+		dl.Length--
+		return
+	}
+
+	node.Prev.Next = node.Next
+	node.Next.Prev = node.Prev
+	node.Prev = nil
+	node.Next = nil
 	dl.Length--
 }
