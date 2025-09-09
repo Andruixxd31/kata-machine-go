@@ -7,6 +7,7 @@ type LinkedList struct {
 }
 
 type Node struct {
+	Key  string
 	Val  int
 	Next *Node
 	Prev *Node
