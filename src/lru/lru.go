@@ -11,7 +11,25 @@ type LRU struct {
 }
 
 func (lru *LRU) Update(key string, value *dl.Node) {
+	if node, ok := lru.Map[key]; ok {
+		// ✅ Happy path: key exists
+		node.Val = value.Val
+		lru.LinkedList.DeleteNode(node)
+		lru.LinkedList.Append(node)
+		return
+	}
 
+	// ❌ Key doesn't exist: create new node
+	node := &dl.Node{Key: key, Val: value.Val}
+	lru.LinkedList.Append(node)
+	lru.Map[key] = node
+
+	// Evict oldest if over capacity
+	if lru.LinkedList.Length > lru.Capacity {
+		oldest := lru.LinkedList.Head
+		lru.LinkedList.DeleteNode(oldest)
+		delete(lru.Map, oldest.Key)
+	}
 }
 
 // Returns the node if it exists.
